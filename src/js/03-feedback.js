@@ -7,14 +7,14 @@ const formRef = document.querySelector('.feedback-form');
 onLoadPage();
 
 const throttledOnInputForm = throttle(onInputForm, 500);
-
 formRef.addEventListener('input', throttledOnInputForm);
 
+let inputData = {};
+const saveData = storageApi.load(LOCAL_STORAGE_KEY);
+inputData = saveData ? saveData : {};
+
 function onInputForm(event) {
-  let inputData = {};
   const { value, name } = event.target;
-  const saveData = storageApi.load(LOCAL_STORAGE_KEY);
-  inputData = saveData ? saveData : {};
 
   inputData[name] = value;
   storageApi.save(LOCAL_STORAGE_KEY, inputData);

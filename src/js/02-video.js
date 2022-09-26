@@ -21,13 +21,11 @@ player.on('play', getCurrentTime);
 
 function getCurrentTime() {
   const currentTime = storageApi.load(LOCAL_STORAGE_KEY);
-  if (currentTime) {
-    player.setCurrentTime(currentTime).then(function (seconds) {});
-  } else {
-    player.setCurrentTime(0).then(function (seconds) {});
-  }
-}
+  player
+    .setCurrentTime(currentTime ? currentTime : 0)
+    .then(function (seconds) {});
 
-player.getVideoTitle().then(function (title) {
-  console.log('title:', title);
-});
+  player.getVideoTitle().then(function (title) {
+    console.log('title:', title);
+  });
+}
